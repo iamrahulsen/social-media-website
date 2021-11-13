@@ -113,13 +113,13 @@ if(isset($_POST['post_message'])) {
 
     <div class="tab-content">
 
-      <div role="tabpanel" class="tab-pane fade in active" id="newsfeed_div">
+      <div role="tabpanel" class="tab-pane active" id="newsfeed_div">
         <div class="posts_area"></div>
         <img id="loading" src="assets/images/icons/loading.gif">
       </div>
 
 
-      <div role="tabpanel" class="tab-pane fade" id="messages_div">
+      <div role="tabpanel" class="tab-pane" id="messages_div">
         <?php  
         
 
@@ -141,8 +141,10 @@ if(isset($_POST['post_message'])) {
         </div>
 
         <script>
-          var div = document.getElementById("scroll_messages");
-          div.scrollTop = div.scrollHeight;
+          $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+              var div = document.getElementById("scroll_messages");
+              div.scrollTop = div.scrollHeight;
+          });
         </script>
       </div>
 
@@ -223,9 +225,11 @@ if(isset($_POST['post_message'])) {
           success: function(response) {
             $('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
             $('.posts_area').find('.noMorePosts').remove(); //Removes current .nextpage 
+            $('.posts_area').find('.noMorePostsText').remove(); //Removes current .nextpage 
 
             $('#loading').hide();
             $('.posts_area').append(response);
+              
           }
         });
 
